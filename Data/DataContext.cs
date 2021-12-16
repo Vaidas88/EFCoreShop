@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShopApp.Models;
+using System.Linq;
 
 namespace ShopApp.Data
 {
@@ -9,7 +10,7 @@ namespace ShopApp.Data
         public DbSet<ShopItem> ShopItems { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
-        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Shop>().HasData(
                 new Shop()
@@ -21,30 +22,45 @@ namespace ShopApp.Data
                  {
                      Id = 2,
                      Name = "Electronics Shop"
-                 },
-                new Shop()
-                {
-                    Id = 3,
-                    Name = "Cosmetics Shop"
-                });
+                 });
 
             modelBuilder.Entity<ShopItem>().HasData(
                 new ShopItem()
                 {
                     Id = 1,
-                    Name = "Banana"
-                    
+                    Name = "Banana",
+                    ShopId = 1
                 },
-                 new ShopItem()
-                 {
-                     Id = 2,
-                     Name = "Electronics Shop"
-                 },
+                new ShopItem()
+                {
+                    Id = 2,
+                    Name = "Apple",
+                    ShopId = 1
+                },
                 new ShopItem()
                 {
                     Id = 3,
-                    Name = "Cosmetics Shop"
+                    Name = "Phone",
+                    ShopId = 2
+                },
+                new ShopItem()
+                {
+                    Id = 4,
+                    Name = "PC",
+                    ShopId = 2
+                },
+                new ShopItem()
+                {
+                    Id = 5,
+                    Name = "TV",
+                    ShopId = 2
+                },
+                new ShopItem()
+                {
+                    Id = 6,
+                    Name = "Potato",
+                    ShopId = 1
                 });
-        }*/
+        }
     }
 }

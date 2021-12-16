@@ -1,0 +1,19 @@
+﻿@model List<ShopItem>
+
+<table class="table">
+    <tr>
+        <th>Item Id</th>
+        <th>Name</th>
+        <th>Expiry Date</th>
+        <th>Shop Name</th>
+    </tr>
+    @foreach (var shopItem in @Model)
+    {
+        <tr>
+            <td>@shopItem.Id</td>
+            <td>@shopItem.Name</td>
+            <td>@shopItem.ExpiryDate</td>
+            <td>@shopItem.Shop.Name</td>
+        </tr>
+    }
+</table>
