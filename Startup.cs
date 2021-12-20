@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShopApp.Data;
+using ShopApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,8 @@ namespace ShopApp
         {
             var defaultConnection = Configuration.GetConnectionString("Default");
             services.AddDbContext<DataContext>(conn => conn.UseSqlServer(defaultConnection));
+            services.AddTransient<ShopItemService>();
+            services.AddTransient<ShopService>();
             services.AddControllersWithViews();
         }
 

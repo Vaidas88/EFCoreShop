@@ -10,7 +10,7 @@ using ShopApp.Data;
 namespace ShopApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211216174814_init")]
+    [Migration("20211217163800_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,51 +66,69 @@ namespace ShopApp.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ShopId");
+
                     b.ToTable("ShopItems");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            ExpiryDate = new DateTime(2022, 2, 14, 17, 48, 14, 551, DateTimeKind.Utc).AddTicks(1067),
+                            ExpiryDate = new DateTime(2022, 2, 15, 16, 37, 59, 458, DateTimeKind.Utc).AddTicks(8311),
                             Name = "Banana",
                             ShopId = 1
                         },
                         new
                         {
                             Id = 2,
-                            ExpiryDate = new DateTime(2022, 2, 14, 17, 48, 14, 551, DateTimeKind.Utc).AddTicks(1951),
+                            ExpiryDate = new DateTime(2022, 2, 15, 16, 37, 59, 458, DateTimeKind.Utc).AddTicks(9253),
                             Name = "Apple",
                             ShopId = 1
                         },
                         new
                         {
                             Id = 3,
-                            ExpiryDate = new DateTime(2022, 2, 14, 17, 48, 14, 551, DateTimeKind.Utc).AddTicks(1955),
+                            ExpiryDate = new DateTime(2022, 2, 15, 16, 37, 59, 458, DateTimeKind.Utc).AddTicks(9257),
                             Name = "Phone",
                             ShopId = 2
                         },
                         new
                         {
                             Id = 4,
-                            ExpiryDate = new DateTime(2022, 2, 14, 17, 48, 14, 551, DateTimeKind.Utc).AddTicks(1956),
+                            ExpiryDate = new DateTime(2022, 2, 15, 16, 37, 59, 458, DateTimeKind.Utc).AddTicks(9259),
                             Name = "PC",
                             ShopId = 2
                         },
                         new
                         {
                             Id = 5,
-                            ExpiryDate = new DateTime(2022, 2, 14, 17, 48, 14, 551, DateTimeKind.Utc).AddTicks(1958),
+                            ExpiryDate = new DateTime(2022, 2, 15, 16, 37, 59, 458, DateTimeKind.Utc).AddTicks(9260),
                             Name = "TV",
                             ShopId = 2
                         },
                         new
                         {
                             Id = 6,
-                            ExpiryDate = new DateTime(2022, 2, 14, 17, 48, 14, 551, DateTimeKind.Utc).AddTicks(1959),
+                            ExpiryDate = new DateTime(2022, 2, 15, 16, 37, 59, 458, DateTimeKind.Utc).AddTicks(9261),
                             Name = "Potato",
                             ShopId = 1
                         });
+                });
+
+            modelBuilder.Entity("ShopApp.Models.ShopItem", b =>
+                {
+                    b.HasOne("ShopApp.Models.Shop", "Shop")
+                        .WithMany("ShopItems")
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Shop");
+                });
+
+            modelBuilder.Entity("ShopApp.Models.Shop", b =>
+                {
+                    b.Navigation("ShopItems");
                 });
 #pragma warning restore 612, 618
         }

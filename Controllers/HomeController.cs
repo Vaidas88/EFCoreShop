@@ -20,7 +20,7 @@ namespace ShopApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "ShopItem");
         }
 
         public IActionResult Privacy()

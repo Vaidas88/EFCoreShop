@@ -6,56 +6,56 @@ namespace ShopApp.Data
 {
     public class DataContext : DbContext
     {
-        public DbSet<Shop> Shops { get; set; }
-        public DbSet<ShopItem> ShopItems { get; set; }
+        public DbSet<ShopModel> Shops { get; set; }
+        public DbSet<ShopItemModel> ShopItems { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Shop>().HasData(
-                new Shop()
+            modelBuilder.Entity<ShopModel>().HasData(
+                new ShopModel()
                 {
                     Id = 1,
                     Name = "Food Shop"
                 },
-                 new Shop()
+                 new ShopModel()
                  {
                      Id = 2,
                      Name = "Electronics Shop"
                  });
 
-            modelBuilder.Entity<ShopItem>().HasData(
-                new ShopItem()
+            modelBuilder.Entity<ShopItemModel>().HasData(
+                new ShopItemModel()
                 {
                     Id = 1,
                     Name = "Banana",
                     ShopId = 1
                 },
-                new ShopItem()
+                new ShopItemModel()
                 {
                     Id = 2,
                     Name = "Apple",
                     ShopId = 1
                 },
-                new ShopItem()
+                new ShopItemModel()
                 {
                     Id = 3,
                     Name = "Phone",
                     ShopId = 2
                 },
-                new ShopItem()
+                new ShopItemModel()
                 {
                     Id = 4,
                     Name = "PC",
                     ShopId = 2
                 },
-                new ShopItem()
+                new ShopItemModel()
                 {
                     Id = 5,
                     Name = "TV",
                     ShopId = 2
                 },
-                new ShopItem()
+                new ShopItemModel()
                 {
                     Id = 6,
                     Name = "Potato",

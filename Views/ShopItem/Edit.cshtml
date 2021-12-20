@@ -1,0 +1,30 @@
+﻿@using ShopApp.ViewModels
+@model ShopItemViewModel
+
+@using (Html.BeginForm("Edit", "ShopItem", FormMethod.Post))
+{
+    <div class="mb-3 col-5">
+        @Html.LabelFor(shopItem => shopItem.Name, new { @class= "form-label" })
+        @Html.TextBoxFor(shopItem => shopItem.Name, new { @class= "form-control" })
+    </div>
+    <div class="mb-3 col-5">
+        @Html.LabelFor(shopItem => shopItem.Shop.Name, new { @class= "form-label" })
+        <select class="form-control" name="ShopId">
+            @foreach (var shop in @Model.Shops)
+            {
+                @if (@Model.ShopId == @shop.Id)
+                {
+                    <option value="@shop.Id" selected>@shop.Name</option>
+                }
+                else
+                {
+                    <option value="@shop.Id">@shop.Name</option>
+                }
+
+            }
+        </select>
+    </div>
+    <div class="mb-3 col-5">
+        <input type="submit" class="btn btn-primary" value="Submit" />
+    </div>
+}

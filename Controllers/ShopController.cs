@@ -10,18 +10,16 @@ namespace ShopApp.Controllers
 {
     public class ShopController : Controller
     {
-        private readonly DataContext _context;
-        public ShopController(DataContext context)
-        {
-            _context = context;
-        }
+        //private readonly DataContext _context;
+        //public ShopController(DataContext context)
+        //{
+        //    _context = context;
+        //}
         // GET: ShopController
         public ActionResult Index()
         {
-            var shopItems =
-                _context.ShopItems.Include(s => s.Shop)
-                .ToList();
-            return View(shopItems);
+            // TODO
+            return View();
         }
 
         // GET: ShopController/Details/5
