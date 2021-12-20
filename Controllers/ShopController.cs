@@ -12,10 +12,12 @@ namespace ShopApp.Controllers
     public class ShopController : Controller
     {
         private readonly ShopService _shopService;
+        private readonly ShopItemService _shopItemService;
 
-        public ShopController(ShopService shopService)
+        public ShopController(ShopService shopService, ShopItemService shopItemService)
         {
             _shopService = shopService;
+            _shopItemService = shopItemService;
         }
 
         // GET: ShopItemController
@@ -82,6 +84,14 @@ namespace ShopApp.Controllers
             _shopService.Delete(id);
 
             return RedirectToAction(nameof(Index));
+        }
+
+        public ActionResult ViewShop(int id)
+        {
+            ViewData["ShopTitle"] = _shopService.GetSingle(id).Name;
+            List<ShopItemModel> shopItems = _shopItemService.GetAllByShop(id);
+
+            return View(shopItems);
         }
     }
 }

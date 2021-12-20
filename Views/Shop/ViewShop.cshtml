@@ -1,0 +1,25 @@
+﻿@model List<ShopItemModel>
+
+<h2>@ViewData["ShopTitle"]</h2>
+
+<hr />
+<table class="table">
+    <tr>
+        <th>Item Id</th>
+        <th>Name</th>
+        <th>Expiry Date</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var shopItem in @Model)
+    {
+        <tr>
+            <td>@shopItem.Id</td>
+            <td>@shopItem.Name</td>
+            <td>@shopItem.ExpiryDate</td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", "ShopItem", new { id = shopItem.Id },  new { @class= "btn btn-danger" })
+                @Html.ActionLink("Edit", "Edit", "ShopItem", new { id = shopItem.Id },  new { @class= "btn btn-success" })
+            </td>
+        </tr>
+    }
+</table>

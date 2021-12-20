@@ -16,6 +16,7 @@
             <td>@shop.Id</td>
             <td>@shop.Name</td>
             <td>
+                @Html.ActionLink("View Shop", "ViewShop", "Shop", new { id = shop.Id },  new { @class= "btn btn-primary" })
                 @Html.ActionLink("Delete", "Delete", "Shop", new { id = shop.Id },  new { @class= "btn btn-danger" })
                 @Html.ActionLink("Edit", "Edit", "Shop", new { id = shop.Id },  new { @class= "btn btn-success" })
             </td>

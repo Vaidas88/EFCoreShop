@@ -20,6 +20,11 @@ namespace ShopApp.Services
             return _context.ShopItems.Include(s => s.Shop).ToList();
         }
 
+        public List<ShopItemModel> GetAllByShop(int id)
+        {
+            return _context.ShopItems.Where(item => item.ShopId == id).ToList();
+        }
+
         public ShopItemModel GetSingle(int id)
         {
             return _context.ShopItems.Find(id);
