@@ -9,7 +9,7 @@ namespace ShopApp.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "The name is required.")]
-        [StringLength(20, MinimumLength = 5, ErrorMessage = "The length can be in the range from 5 to 20 chars.")]
+        [StringLength(20, MinimumLength = 5, ErrorMessage = "The length must be in the range from 5 to 20 chars.")]
         public string Name { get; set; }
 
         public int ShopId { get; set; }

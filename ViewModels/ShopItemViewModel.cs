@@ -9,13 +9,14 @@ namespace ShopApp.ViewModels
         {
 
         }
-        public ShopItemViewModel(ShopItemModel shopItem)
+        public ShopItemViewModel(ShopItemModel shopItem, List<ShopModel> shops)
         {
             Id = shopItem.Id;
             Name = shopItem.Name;
             ShopId = shopItem.ShopId;
             Shop = shopItem.Shop;
             ExpiryDate = shopItem.ExpiryDate;
+            Shops = shops;
         }
         public List<ShopModel> Shops { get; set; }
     }

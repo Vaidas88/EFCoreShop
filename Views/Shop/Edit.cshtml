@@ -1,0 +1,13 @@
+﻿@model ShopModel
+
+@using (Html.BeginForm("Edit", "Shop", FormMethod.Post))
+{
+    <div class="mb-3 col-5">
+        @Html.LabelFor(shop => shop.Name, new { @class= "form-label" })
+        @Html.TextBoxFor(shop => shop.Name, new { @class= "form-control" })
+        @Html.ValidationMessageFor(shop => shop.Name)
+    </div>
+    <div class="mb-3 col-5">
+        <input type="submit" class="btn btn-primary" value="Submit" />
+    </div>
+}

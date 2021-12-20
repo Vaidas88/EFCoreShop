@@ -20,6 +20,28 @@ namespace ShopApp.Services
             return _context.Shops.ToList();
         }
 
+        public ShopModel GetSingle(int id)
+        {
+            return _context.Shops.Find(id);
+        }
 
+        public void Create(ShopModel shop)
+        {
+            _context.Shops.Add(shop);
+            _context.SaveChanges();
+        }
+
+        public void Edit(ShopModel shop)
+        {
+            _context.Shops.Update(shop);
+            _context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            ShopModel shop = _context.Shops.Find(id);
+            _context.Remove(shop);
+            _context.SaveChanges();
+        }
     }
 }

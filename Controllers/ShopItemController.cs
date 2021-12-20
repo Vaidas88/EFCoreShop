@@ -22,14 +22,15 @@ namespace ShopApp.Controllers
         public ActionResult Index()
         {
             List<ShopItemModel> shopItems = _shopItemService.GetAll();
+
             return View(shopItems);
         }
 
         // GET: ShopItemController/Create
         public ActionResult Create()
         {
-            ShopItemViewModel shopItem = new ShopItemViewModel();
-            shopItem.Shops = _shopService.GetAll();
+            ShopItemViewModel shopItem = new ShopItemViewModel(new ShopItemModel(), _shopService.GetAll());
+
             return View(shopItem);
         }
 
@@ -41,19 +42,19 @@ namespace ShopApp.Controllers
             if (ModelState.IsValid)
             {
                 _shopItemService.Create(shopItem);
+
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                return RedirectToAction("Create");
+                return View(new ShopItemViewModel(shopItem, _shopService.GetAll()));
             }
         }
 
         // GET: ShopItemController/Edit/5
         public ActionResult Edit(int id)
         {
-            ShopItemViewModel shopItem = new ShopItemViewModel(_shopItemService.GetSingle(id));
-            shopItem.Shops = _shopService.GetAll();
+            ShopItemViewModel shopItem = new ShopItemViewModel(_shopItemService.GetSingle(id), _shopService.GetAll());
 
             return View(shopItem);
         }
@@ -66,11 +67,12 @@ namespace ShopApp.Controllers
             if (ModelState.IsValid)
             {
                 _shopItemService.Edit(shopItem);
+
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                return RedirectToAction("Edit");
+                return View(new ShopItemViewModel(shopItem, _shopService.GetAll()));
             }
         }
 
@@ -78,6 +80,7 @@ namespace ShopApp.Controllers
         public ActionResult Delete(int id)
         {
             _shopItemService.Delete(id);
+
             return RedirectToAction(nameof(Index));
         }
     }

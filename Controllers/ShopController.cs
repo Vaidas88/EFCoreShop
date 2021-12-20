@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopApp.Data;
 using ShopApp.Models;
+using ShopApp.Services;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,85 +11,77 @@ namespace ShopApp.Controllers
 {
     public class ShopController : Controller
     {
-        //private readonly DataContext _context;
-        //public ShopController(DataContext context)
-        //{
-        //    _context = context;
-        //}
-        // GET: ShopController
+        private readonly ShopService _shopService;
+
+        public ShopController(ShopService shopService)
+        {
+            _shopService = shopService;
+        }
+
+        // GET: ShopItemController
         public ActionResult Index()
         {
-            // TODO
-            return View();
+            List<ShopModel> shops = _shopService.GetAll();
+
+            return View(shops);
         }
 
-        // GET: ShopController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: ShopController/Create
+        // GET: ShopItemController/Create
         public ActionResult Create()
         {
-            return View();
+            ShopModel shop = new ShopModel();
+
+            return View(shop);
         }
 
-        // POST: ShopController/Create
+        // POST: ShopItemController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(ShopModel shop)
         {
-            try
+            if (ModelState.IsValid)
             {
+                _shopService.Create(shop);
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            else
             {
-                return View();
+                return View(shop);
             }
         }
 
-        // GET: ShopController/Edit/5
+        // GET: ShopItemController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ShopModel shop = _shopService.GetSingle(id);
+
+            return View(shop);
         }
 
-        // POST: ShopController/Edit/5
+        // POST: ShopItemController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(ShopModel shop)
         {
-            try
+            if (ModelState.IsValid)
             {
+                _shopService.Edit(shop);
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            else
             {
-                return View();
+                return View(shop);
             }
         }
 
-        // GET: ShopController/Delete/5
+        // GET: ShopItemController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
+            _shopService.Delete(id);
 
-        // POST: ShopController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }

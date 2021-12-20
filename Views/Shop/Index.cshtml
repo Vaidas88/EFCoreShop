@@ -1,0 +1,24 @@
+﻿@model List<ShopModel>
+
+<div class="d-flex w-100 justify-content-between">
+    @Html.ActionLink("Create", "Create", "Shop", new {}, new { @class= "btn btn-primary" })
+</div>
+<hr />
+<table class="table">
+    <tr>
+        <th>Shop Id</th>
+        <th>Shop Name</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var shop in @Model)
+    {
+        <tr>
+            <td>@shop.Id</td>
+            <td>@shop.Name</td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", "Shop", new { id = shop.Id },  new { @class= "btn btn-danger" })
+                @Html.ActionLink("Edit", "Edit", "Shop", new { id = shop.Id },  new { @class= "btn btn-success" })
+            </td>
+        </tr>
+    }
+</table>

@@ -43,7 +43,5 @@ namespace ShopApp.Services
             _context.Remove(shopItem);
             _context.SaveChanges();
         }
-
-
     }
 }
