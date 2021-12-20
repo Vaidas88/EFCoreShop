@@ -38,14 +38,14 @@ namespace ShopApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ShopItemModel shopItem)
         {
-            try
+            if (ModelState.IsValid)
             {
                 _shopItemService.Create(shopItem);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction("Create");
             }
         }
 
@@ -63,14 +63,14 @@ namespace ShopApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ShopItemModel shopItem)
         {
-            try
+            if (ModelState.IsValid)
             {
                 _shopItemService.Edit(shopItem);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction("Edit");
             }
         }
 
