@@ -1,5 +1,5 @@
-﻿using ShopApp.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using ShopApp.Models;
 
 namespace ShopApp.ViewModels
 {
@@ -7,8 +7,8 @@ namespace ShopApp.ViewModels
     {
         public ShopItemViewModel()
         {
-
         }
+
         public ShopItemViewModel(ShopItemModel shopItem, List<ShopModel> shops)
         {
             Id = shopItem.Id;
@@ -18,6 +18,7 @@ namespace ShopApp.ViewModels
             ExpiryDate = shopItem.ExpiryDate;
             Shops = shops;
         }
+
         public List<ShopModel> Shops { get; set; }
     }
 }

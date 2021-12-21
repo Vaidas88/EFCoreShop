@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using ShopApp.Data;
 using ShopApp.Models;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ShopApp.Services
 {
@@ -44,7 +44,7 @@ namespace ShopApp.Services
 
         public void Delete(int id)
         {
-            ShopItemModel shopItem = _context.ShopItems.Find(id);
+            var shopItem = _context.ShopItems.Find(id);
             _context.Remove(shopItem);
             _context.SaveChanges();
         }

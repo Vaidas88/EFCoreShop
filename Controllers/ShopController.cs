@@ -1,18 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ShopApp.Data;
+﻿using Microsoft.AspNetCore.Mvc;
 using ShopApp.Models;
 using ShopApp.Services;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ShopApp.Controllers
 {
     public class ShopController : Controller
     {
-        private readonly ShopService _shopService;
         private readonly ShopItemService _shopItemService;
+        private readonly ShopService _shopService;
 
         public ShopController(ShopService shopService, ShopItemService shopItemService)
         {
@@ -23,7 +18,7 @@ namespace ShopApp.Controllers
         // GET: ShopItemController
         public ActionResult Index()
         {
-            List<ShopModel> shops = _shopService.GetAll();
+            var shops = _shopService.GetAll();
 
             return View(shops);
         }
@@ -31,7 +26,7 @@ namespace ShopApp.Controllers
         // GET: ShopItemController/Create
         public ActionResult Create()
         {
-            ShopModel shop = new ShopModel();
+            var shop = new ShopModel();
 
             return View(shop);
         }
@@ -47,16 +42,14 @@ namespace ShopApp.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                return View(shop);
-            }
+
+            return View(shop);
         }
 
         // GET: ShopItemController/Edit/5
         public ActionResult Edit(int id)
         {
-            ShopModel shop = _shopService.GetSingle(id);
+            var shop = _shopService.GetSingle(id);
 
             return View(shop);
         }
@@ -72,10 +65,8 @@ namespace ShopApp.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                return View(shop);
-            }
+
+            return View(shop);
         }
 
         // GET: ShopItemController/Delete/5
@@ -89,7 +80,7 @@ namespace ShopApp.Controllers
         public ActionResult ViewShop(int id)
         {
             ViewData["ShopTitle"] = _shopService.GetSingle(id).Name;
-            List<ShopItemModel> shopItems = _shopItemService.GetAllByShop(id);
+            var shopItems = _shopItemService.GetAllByShop(id);
 
             return View(shopItems);
         }

@@ -1,23 +1,22 @@
-﻿@using ShopApp.ViewModels
-@model ShopItemViewModel
+﻿@model ShopApp.ViewModels.ShopItemViewModel
 
 @using (Html.BeginForm("Create", "ShopItem", FormMethod.Post))
 {
     <div class="mb-3 col-5">
-        @Html.LabelFor(shopItem => shopItem.Name, new { @class= "form-label" })
-        @Html.TextBoxFor(shopItem => shopItem.Name, new { @class= "form-control" })
+        @Html.LabelFor(shopItem => shopItem.Name, new {@class = "form-label"})
+        @Html.TextBoxFor(shopItem => shopItem.Name, new {@class = "form-control"})
         @Html.ValidationMessageFor(shopItem => shopItem.Name)
     </div>
     <div class="mb-3 col-5">
-        @Html.LabelFor(shopItem => shopItem.Shop.Name, new { @class= "form-label" })
+        @Html.LabelFor(shopItem => shopItem.Shop.Name, new {@class = "form-label"})
         <select class="form-control" name="ShopId">
-            @foreach (var shop in @Model.Shops)
+            @foreach (var shop in Model.Shops)
             {
                 <option value="@shop.Id">@shop.Name</option>
             }
         </select>
     </div>
     <div class="mb-3 col-5">
-        <input type="submit" class="btn btn-primary" value="Submit" />
+        <input type="submit" class="btn btn-primary" value="Submit"/>
     </div>
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShopApp.Models
 {
@@ -17,5 +16,7 @@ namespace ShopApp.Models
         public ShopModel Shop { get; set; }
 
         public DateTime ExpiryDate { get; set; } = DateTime.UtcNow + TimeSpan.FromDays(60);
+
+        public bool IsDeleted { get; set; } = false;
     }
 }

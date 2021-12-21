@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ShopApp.Models;
 using ShopApp.Services;
 using ShopApp.ViewModels;
-using System.Collections.Generic;
 
 namespace ShopApp.Controllers
 {
@@ -21,7 +19,7 @@ namespace ShopApp.Controllers
         // GET: ShopItemController
         public ActionResult Index()
         {
-            List<ShopItemModel> shopItems = _shopItemService.GetAll();
+            var shopItems = _shopItemService.GetAll();
 
             return View(shopItems);
         }
@@ -29,7 +27,7 @@ namespace ShopApp.Controllers
         // GET: ShopItemController/Create
         public ActionResult Create()
         {
-            ShopItemViewModel shopItem = new ShopItemViewModel(new ShopItemModel(), _shopService.GetAll());
+            var shopItem = new ShopItemViewModel(new ShopItemModel(), _shopService.GetAll());
 
             return View(shopItem);
         }
@@ -45,16 +43,14 @@ namespace ShopApp.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                return View(new ShopItemViewModel(shopItem, _shopService.GetAll()));
-            }
+
+            return View(new ShopItemViewModel(shopItem, _shopService.GetAll()));
         }
 
         // GET: ShopItemController/Edit/5
         public ActionResult Edit(int id)
         {
-            ShopItemViewModel shopItem = new ShopItemViewModel(_shopItemService.GetSingle(id), _shopService.GetAll());
+            var shopItem = new ShopItemViewModel(_shopItemService.GetSingle(id), _shopService.GetAll());
 
             return View(shopItem);
         }
@@ -70,10 +66,8 @@ namespace ShopApp.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                return View(new ShopItemViewModel(shopItem, _shopService.GetAll()));
-            }
+
+            return View(new ShopItemViewModel(shopItem, _shopService.GetAll()));
         }
 
         // GET: ShopItemController/Delete/5
