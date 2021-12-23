@@ -25,6 +25,7 @@ namespace ShopApp
             services.AddDbContext<DataContext>(conn => conn.UseSqlServer(defaultConnection));
             services.AddTransient<ShopItemService>();
             services.AddTransient<ShopService>();
+            services.AddTransient<TagService>();
             services.AddControllersWithViews();
         }
 

@@ -20,7 +20,7 @@ namespace ShopApp.Services
             return _context.ShopItems.Include(s => s.Shop).ToList();
         }
 
-        public List<ShopItemModel> GetAllByShop(int id)
+        public List<ShopItemModel> GetAllByShopId(int id)
         {
             return _context.ShopItems.Where(item => item.ShopId == id).ToList();
         }

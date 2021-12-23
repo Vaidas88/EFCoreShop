@@ -80,7 +80,7 @@ namespace ShopApp.Controllers
         public ActionResult ViewShop(int id)
         {
             ViewData["ShopTitle"] = _shopService.GetSingle(id).Name;
-            var shopItems = _shopItemService.GetAllByShop(id);
+            var shopItems = _shopItemService.GetAllByShopId(id);
 
             return View(shopItems);
         }

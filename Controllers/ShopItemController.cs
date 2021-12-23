@@ -2,6 +2,7 @@
 using ShopApp.Models;
 using ShopApp.Services;
 using ShopApp.ViewModels;
+using System.Collections.Generic;
 
 namespace ShopApp.Controllers
 {
@@ -9,11 +10,13 @@ namespace ShopApp.Controllers
     {
         private readonly ShopItemService _shopItemService;
         private readonly ShopService _shopService;
+        private readonly TagService _tagService;
 
-        public ShopItemController(ShopItemService shopItemService, ShopService shopService)
+        public ShopItemController(ShopItemService shopItemService, ShopService shopService, TagService tagService)
         {
             _shopItemService = shopItemService;
             _shopService = shopService;
+            _tagService = tagService;
         }
 
         // GET: ShopItemController
@@ -27,9 +30,12 @@ namespace ShopApp.Controllers
         // GET: ShopItemController/Create
         public ActionResult Create()
         {
-            var shopItem = new ShopItemViewModel(new ShopItemModel(), _shopService.GetAll());
+            ShopItemViewModel shopItemView = new ShopItemViewModel();
+            shopItemView.ShopItem = new ShopItemModel();
+            shopItemView.Shops = _shopService.GetAll();
+            shopItemView.Tags = _tagService.GetAll();
 
-            return View(shopItem);
+            return View(shopItemView);
         }
 
         // POST: ShopItemController/Create
@@ -44,15 +50,23 @@ namespace ShopApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(new ShopItemViewModel(shopItem, _shopService.GetAll()));
+            ShopItemViewModel shopItemView = new ShopItemViewModel();
+            shopItemView.ShopItem = shopItem;
+            shopItemView.Shops = _shopService.GetAll();
+            shopItemView.Tags = _tagService.GetAll();
+
+            return View(shopItemView);
         }
 
         // GET: ShopItemController/Edit/5
         public ActionResult Edit(int id)
         {
-            var shopItem = new ShopItemViewModel(_shopItemService.GetSingle(id), _shopService.GetAll());
+            ShopItemViewModel shopItemView = new ShopItemViewModel();
+            shopItemView.ShopItem = _shopItemService.GetSingle(id);
+            shopItemView.Shops = _shopService.GetAll();
+            shopItemView.Tags = _tagService.GetAll();
 
-            return View(shopItem);
+            return View(shopItemView);
         }
 
         // POST: ShopItemController/Edit/5
@@ -67,7 +81,12 @@ namespace ShopApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(new ShopItemViewModel(shopItem, _shopService.GetAll()));
+            ShopItemViewModel shopItemView = new ShopItemViewModel();
+            shopItemView.ShopItem = shopItem;
+            shopItemView.Shops = _shopService.GetAll();
+            shopItemView.Tags = _tagService.GetAll();
+
+            return View(shopItemView);
         }
 
         // GET: ShopItemController/Delete/5

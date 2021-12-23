@@ -3,22 +3,14 @@ using ShopApp.Models;
 
 namespace ShopApp.ViewModels
 {
-    public class ShopItemViewModel : ShopItemModel
+    public class ShopItemViewModel
     {
-        public ShopItemViewModel()
-        {
-        }
-
-        public ShopItemViewModel(ShopItemModel shopItem, List<ShopModel> shops)
-        {
-            Id = shopItem.Id;
-            Name = shopItem.Name;
-            ShopId = shopItem.ShopId;
-            Shop = shopItem.Shop;
-            ExpiryDate = shopItem.ExpiryDate;
-            Shops = shops;
-        }
+        public ShopItemModel ShopItem { get; set; }
 
         public List<ShopModel> Shops { get; set; }
+
+        public List<TagModel> Tags { get; set; }
+
+        public List<int> SelectedTagIds { get; set; }
     }
 }
