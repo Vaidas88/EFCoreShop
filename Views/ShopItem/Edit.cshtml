@@ -2,6 +2,7 @@
 
 @using (Html.BeginForm("Edit", "ShopItem", FormMethod.Post))
 {
+    @Html.HiddenFor(shopItem => shopItem.ShopItem.Id)
     <div class="mb-3 col-5">
         @Html.LabelFor(shopItem => shopItem.ShopItem.Name, new {@class = "form-label"})
         @Html.TextBoxFor(shopItem => shopItem.ShopItem.Name, new {@class = "form-control"})
@@ -9,19 +10,11 @@
     </div>
     <div class="mb-3 col-5">
         @Html.LabelFor(shopItem => shopItem.ShopItem.Shop.Name, new {@class = "form-label"})
-        <select class="form-control" name="ShopId">
-            @foreach (var shop in Model.Shops)
-            {
-                @if (Model.ShopItem.ShopId == shop.Id)
-                {
-                    <option value="@shop.Id" selected>@shop.Name</option>
-                }
-                else
-                {
-                    <option value="@shop.Id">@shop.Name</option>
-                }
-            }
-        </select>
+        @Html.DropDownListFor(shopItem => shopItem.ShopItem.ShopId, new SelectList(@Model.Shops,"Id", "Name"), new {@class = "form-control"})
+    </div>
+    <div class="mb-3 col-5">
+        @Html.LabelFor(shopItem => shopItem.ShopItem.Tags, new {@class = "form-label"})
+        @Html.ListBoxFor(shopItem => shopItem.SelectedTagIds, new MultiSelectList(@Model.Tags, "Id", "Name"), new {@class = "form-control"})
     </div>
     <div class="mb-3 col-5">
         <input type="submit" class="btn btn-primary" value="Submit" />

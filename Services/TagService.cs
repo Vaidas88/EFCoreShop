@@ -37,10 +37,16 @@ namespace ShopApp.Services
             _context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void DeleteShopItemTags(int id)
         {
-            var tag = _context.Tags.Find(id);
-            _context.Remove(tag);
+            var tag = _context.ShopItemTags.Where(sit => sit.ShopItemId == id);
+            _context.RemoveRange(tag);
+            _context.SaveChanges();
+        }
+
+        public void AssignTagToShopItem(ShopItemTagModel shopItemTag)
+        {
+            _context.ShopItemTags.Add(shopItemTag);
             _context.SaveChanges();
         }
     }

@@ -22,6 +22,6 @@ namespace ShopApp.Models
         public bool IsDeleted { get; set; } = false;
 
         [Display(Name = "Tags:")]
-        public List<TagModel> Tags { get; set; }
+        public List<ShopItemTagModel> Tags { get; set; }
     }
 }

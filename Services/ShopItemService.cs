@@ -17,12 +17,19 @@ namespace ShopApp.Services
 
         public List<ShopItemModel> GetAll()
         {
-            return _context.ShopItems.Include(s => s.Shop).ToList();
+            return _context.ShopItems
+                .Include(s => s.Shop)
+                .Include(t => t.Tags)
+                    .ThenInclude(tag => tag.Tag)
+                        .ToList();
         }
 
         public List<ShopItemModel> GetAllByShopId(int id)
         {
-            return _context.ShopItems.Where(item => item.ShopId == id).ToList();
+            return _context.ShopItems.Where(item => item.ShopId == id)
+                .Include(s => s.Shop)
+                .Include(t => t.Tags)
+                    .ThenInclude(tag => tag.Tag).ToList();
         }
 
         public ShopItemModel GetSingle(int id)

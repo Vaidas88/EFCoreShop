@@ -77,9 +77,8 @@ namespace ShopApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public ActionResult ViewShop(int id)
+        public ActionResult View(int id)
         {
-            ViewData["ShopTitle"] = _shopService.GetSingle(id).Name;
             var shopItems = _shopItemService.GetAllByShopId(id);
 
             return View(shopItems);
