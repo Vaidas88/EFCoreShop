@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShopApp.Data;
+using ShopApp.Models;
+using ShopApp.Repositories;
 using ShopApp.Services;
 
 namespace ShopApp
@@ -26,6 +28,9 @@ namespace ShopApp
             services.AddTransient<ShopItemService>();
             services.AddTransient<ShopService>();
             services.AddTransient<TagService>();
+
+            services.AddTransient<IRepository<ShopItemModel>, ShopItemRepository>();
+
             services.AddControllersWithViews();
         }
 

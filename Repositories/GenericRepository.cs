@@ -15,12 +15,13 @@ namespace ShopApp.Repositories
         {
             _context = context;
         }
+
         public virtual T Add(T entity)
         {
             return _context.Add(entity).Entity;
         }
 
-        public virtual IEnumerable<T> All()
+        public virtual IEnumerable<T> GetAll()
         {
             return _context.Set<T>().ToList();
         }
@@ -46,6 +47,12 @@ namespace ShopApp.Repositories
         public virtual T Update(T entity)
         {
             return _context.Update(entity).Entity;
+        }
+
+        public virtual void Delete(int id)
+        {
+            var entity = _context.Find<T>(id);
+            _context.Remove(entity);
         }
     }
 }

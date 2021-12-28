@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopApp.Models;
+using ShopApp.Repositories;
 using ShopApp.Services;
 using ShopApp.ViewModels;
 using System;
@@ -13,17 +14,23 @@ namespace ShopApp.Controllers
         private readonly ShopService _shopService;
         private readonly TagService _tagService;
 
-        public ShopItemController(ShopItemService shopItemService, ShopService shopService, TagService tagService)
+        private readonly IRepository<ShopItemModel> _shopItemRepository;
+
+        public ShopItemController
+            (ShopItemService shopItemService, ShopService shopService, TagService tagService, IRepository<ShopItemModel> shopItemRepository)
         {
             _shopItemService = shopItemService;
             _shopService = shopService;
             _tagService = tagService;
+
+            _shopItemRepository = shopItemRepository;
         }
 
         // GET: ShopItemController
         public ActionResult Index()
         {
-            var shopItems = _shopItemService.GetAll();
+            //var shopItems = _shopItemService.GetAll();
+            var shopItems = _shopItemRepository.GetAll();
 
             return View(shopItems);
         }
@@ -43,7 +50,8 @@ namespace ShopApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _shopItemService.Create(shopItemView.ShopItem);
+                _shopItemRepository.Add(shopItemView.ShopItem);
+                _shopItemRepository.SaveChanges();
 
                 foreach (int tagId in shopItemView.SelectedTagIds)
                 {
@@ -79,7 +87,9 @@ namespace ShopApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _shopItemService.Edit(shopItemView.ShopItem);
+                _shopItemRepository.Update(shopItemView.ShopItem);
+                _shopItemRepository.SaveChanges();
+
                 _tagService.DeleteShopItemTags(shopItemView.ShopItem.Id);
 
                 foreach (int tagId in shopItemView.SelectedTagIds)
@@ -103,7 +113,8 @@ namespace ShopApp.Controllers
         // GET: ShopItemController/Delete/5
         public ActionResult Delete(int id)
         {
-            _shopItemService.Delete(id);
+            _shopItemRepository.Delete(id);
+            _shopItemRepository.SaveChanges();
 
             return RedirectToAction(nameof(Index));
         }
