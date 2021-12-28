@@ -1,4 +1,5 @@
-﻿using ShopApp.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ShopApp.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,25 +11,27 @@ namespace ShopApp.Repositories
         : IRepository<T> where T : class
     {
         protected DataContext _context;
+        protected DbSet<T> _dbSet;
 
         public GenericRepository(DataContext context)
         {
             _context = context;
+            _dbSet = _context.Set<T>();
         }
 
         public virtual T Add(T entity)
         {
-            return _context.Add(entity).Entity;
+            return _dbSet.Add(entity).Entity;
         }
 
         public virtual IEnumerable<T> GetAll()
         {
-            return _context.Set<T>().ToList();
+            return _dbSet.ToList();
         }
 
         public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            return _context.Set<T>()
+            return _dbSet
                 .AsQueryable()
                 .Where(predicate)
                 .ToList();
@@ -36,7 +39,7 @@ namespace ShopApp.Repositories
 
         public virtual T Get(int id)
         {
-            return _context.Find<T>(id);
+            return _dbSet.Find(id);
         }
 
         public virtual void SaveChanges()
@@ -46,13 +49,13 @@ namespace ShopApp.Repositories
 
         public virtual T Update(T entity)
         {
-            return _context.Update(entity).Entity;
+            return _dbSet.Update(entity).Entity;
         }
 
         public virtual void Delete(int id)
         {
-            var entity = _context.Find<T>(id);
-            _context.Remove(entity);
+            var entity = _dbSet.Find(id);
+            _dbSet.Remove(entity);
         }
     }
 }
